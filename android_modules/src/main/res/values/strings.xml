@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Android Modules</string>
+    <string name="title_activity_based_task">ActivityBasedTask</string>
+</resources>

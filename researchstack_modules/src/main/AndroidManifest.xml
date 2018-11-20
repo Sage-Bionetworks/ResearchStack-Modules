@@ -1,0 +1,10 @@
+<manifest
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        package="org.sagebionetworks.research.researchstack_modules">
+
+    <application>
+        <activity
+                android:name="org.researchstack.backbone.ui.ActiveTaskActivity"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+    </application>
+</manifest>

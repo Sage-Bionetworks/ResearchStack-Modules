@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':researchstack_modules', ':android_modules'
 
 include ':backbone'
 project(':backbone').projectDir = new File('ResearchStack/backbone')

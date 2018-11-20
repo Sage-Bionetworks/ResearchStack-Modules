@@ -3,8 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ResearchStack-Modules.iml" filepath="$PROJECT_DIR$/ResearchStack-Modules.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android_modules/android_modules.iml" filepath="$PROJECT_DIR$/android_modules/android_modules.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/ResearchStack/backbone/backbone.iml" filepath="$PROJECT_DIR$/ResearchStack/backbone/backbone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/researchstack_modules/researchstack_modules.iml" filepath="$PROJECT_DIR$/researchstack_modules/researchstack_modules.iml" />
     </modules>
   </component>
 </project>

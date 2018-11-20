@@ -1,12 +1,68 @@
 package org.sagebionetworks.research.researchstackmodule
 
-import android.support.v7.app.AppCompatActivity
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.support.multidex.MultiDex
+import android.util.Log
+import android.view.View
+import org.researchstack.backbone.answerformat.TextAnswerFormat
+import org.researchstack.backbone.result.TaskResult
+import org.researchstack.backbone.step.QuestionStep
+import org.researchstack.backbone.step.Step
+import org.researchstack.backbone.task.OrderedTask
+import org.researchstack.backbone.ui.ActiveTaskActivity
+import org.researchstack.backbone.ui.ViewTaskActivity
+import org.sagebionetworks.research.android_modules.ActivityBasedTask
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : Activity() {
+    val REQUEST_TASK = 1245
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
+
+    override fun attachBaseContext(base: Context) {
+        // This is needed for android versions < 5.0 or you can extend MultiDexApplication
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
+
+    fun onResearchStackTaskClicked(view: View) {
+        val task = OrderedTask(
+            "researchstack-task", arrayListOf(
+                QuestionStep("question1", "Question One", TextAnswerFormat())
+            ) as List<Step>?
+        )
+        
+        val intent = ActiveTaskActivity.newIntent(applicationContext, task)
+
+        startActivityForResult(intent, REQUEST_TASK)
+    }
+
+    fun onActivityBasedTaskClicked(view: View) {
+        val intent = ActivityBasedTask.createIntent(this)
+
+        startActivityForResult(intent, REQUEST_TASK)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (requestCode == REQUEST_TASK) {
+            if (resultCode == Activity.RESULT_OK) {
+                val taskResult = data!!.getSerializableExtra(ViewTaskActivity.EXTRA_TASK_RESULT) as TaskResult
+
+                handleTaskResult(taskResult)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+    fun handleTaskResult(taskResult: TaskResult) {
+        Log.i("MainActivity", "Received task result" + taskResult.toString())
+
+        // this is where My BP Lab will upload, mark task as complete, etc
     }
 }
