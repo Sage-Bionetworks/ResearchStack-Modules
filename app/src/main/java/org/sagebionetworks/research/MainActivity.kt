@@ -1,4 +1,4 @@
-package org.sagebionetworks.research.researchstackmodule
+package org.sagebionetworks.research
 
 import android.app.Activity
 import android.content.Context
@@ -14,9 +14,9 @@ import org.researchstack.backbone.step.Step
 import org.researchstack.backbone.task.OrderedTask
 import org.researchstack.backbone.ui.ActiveTaskActivity
 import org.researchstack.backbone.ui.ViewTaskActivity
-import org.sagebionetworks.research.ModuleApplication
 import org.sagebionetworks.research.android_modules.ActivityBasedTask
 import org.sagebionetworks.research.researchstack_modules.CustomStep
+import org.sagebionetworks.research.researchstackmodule.R
 
 class MainActivity : Activity() {
     val REQUEST_TASK = 1245
@@ -39,6 +39,7 @@ class MainActivity : Activity() {
     }
 
     fun onResearchStackTaskClicked(view: View) {
+        // Create a Task which includes a custom step from a ResearchStack module
         val task = OrderedTask(
             "researchstack-task", arrayListOf(
                 QuestionStep("question1", "Question One", TextAnswerFormat()),
@@ -52,9 +53,14 @@ class MainActivity : Activity() {
     }
 
     fun onActivityBasedTaskClicked(view: View) {
+        // Create Task which is an arbitrary Activity
         val intent = ActivityBasedTask.createIntent(this)
 
         startActivityForResult(intent, REQUEST_TASK)
+    }
+
+    fun onFragmentBasedTaskClicked(view: View) {
+        // TODO: Create wrapper for Fragment
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
