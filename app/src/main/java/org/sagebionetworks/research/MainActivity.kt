@@ -43,8 +43,9 @@ class MainActivity : Activity() {
         val task = OrderedTask(
             "researchstack-task", arrayListOf(
                 QuestionStep("question1", "Question One", TextAnswerFormat()),
-                CustomStep("custom-step1")
-            ) as List<Step>?
+                CustomStep("custom-step1"),
+                QuestionStep("question2", "Question Two", TextAnswerFormat())
+                ) as List<Step>?
         )
 
         val intent = ActiveTaskActivity.newIntent(applicationContext, task)
