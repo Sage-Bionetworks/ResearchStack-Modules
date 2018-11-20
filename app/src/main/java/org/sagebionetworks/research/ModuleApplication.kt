@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import org.researchstack.backbone.ResearchStack
 import org.researchstack.backbone.StorageAccess
+import org.sagebionetworks.research.researchstack.MockResearchStack
 
 class ModuleApplication : Application() {
     companion object {
@@ -24,7 +25,6 @@ class ModuleApplication : Application() {
         super.onCreate()
 
         researchStack = MockResearchStack()
-//        ResearchStack.init(this, researchStack)
+        ResearchStack.init(this, researchStack)
     }
-
 }

@@ -14,7 +14,9 @@ import org.researchstack.backbone.step.Step
 import org.researchstack.backbone.task.OrderedTask
 import org.researchstack.backbone.ui.ActiveTaskActivity
 import org.researchstack.backbone.ui.ViewTaskActivity
+import org.sagebionetworks.research.ModuleApplication
 import org.sagebionetworks.research.android_modules.ActivityBasedTask
+import org.sagebionetworks.research.researchstack_modules.CustomStep
 
 class MainActivity : Activity() {
     val REQUEST_TASK = 1245
@@ -30,13 +32,20 @@ class MainActivity : Activity() {
         MultiDex.install(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        ModuleApplication.mockAuthenticate(this)
+    }
+
     fun onResearchStackTaskClicked(view: View) {
         val task = OrderedTask(
             "researchstack-task", arrayListOf(
-                QuestionStep("question1", "Question One", TextAnswerFormat())
+                QuestionStep("question1", "Question One", TextAnswerFormat()),
+                CustomStep("custom-step1")
             ) as List<Step>?
         )
-        
+
         val intent = ActiveTaskActivity.newIntent(applicationContext, task)
 
         startActivityForResult(intent, REQUEST_TASK)
@@ -61,7 +70,10 @@ class MainActivity : Activity() {
     }
 
     fun handleTaskResult(taskResult: TaskResult) {
-        Log.i("MainActivity", "Received task result" + taskResult.toString())
+        Log.i(
+            "MainActivity",
+            "Received task result: " + taskResult + ", step results: " + taskResult.results
+        )
 
         // this is where My BP Lab will upload, mark task as complete, etc
     }
